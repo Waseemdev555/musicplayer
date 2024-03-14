@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="music">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="./c5fc5b0b-b28c-432e-9d5b-b5f5a708eb51.jpg" alt="">
+            <h1>khair manga</h1>
+            <p>rahat fateh</p>
+            <audio  id="song">
+                <source src="./WhatsApp Audio 2024-03-14 at 1.15.34 AM.mpeg" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+            <div class="controls">
+                <div>
+                    <i class="fa-solid fa-backward-fast"></i>
+                </div>
+                <div onclick="playpause()">
+                    <!-- <i class="fa-solid fa-pause" ></i> -->
+                    <i class="fa-solid fa-play" id="ctrls"></i>
+                </div>
+                <div>
+                    <i class="fa-solid fa-forward-fast"></i>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        let progress= document.getElementById("progress");
+        let song= document.getElementById("song");
+        let ctrls= document.getElementById("ctrls");
+
+        song.onloadeddata = function(){
+            progress.max = song.duration;
+            progress.value= song.currentTime;
+            
+        }
+        function playpause(){
+
+            if(ctrls.classList.contains("fa-pause")){
+                song.pause();
+                ctrls.classList.remove("fa-pause");
+            ctrls.classList.add("fa-play");
+            
+        }else{
+            song.play()
+            ctrls.classList.add("fa-pause");
+            ctrls.classList.remove("fa-play");
+        }
+    }
+    if(song.play()){
+        setInterval(()=>{
+            progress.value= song.currentTime;
+        },500)
+    }
+    progress.onchange=function(){
+        song.play()
+        song.currentTime= progress.value;
+        ctrls.classList.remove("fa-pause");
+            ctrls.classList.add("fa-play");
+    }
+    </script>
+</body>
+
+</html>
